@@ -1,0 +1,394 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    margin: 0px;
+    background-color: rgba(100, 100, 100, 0.05);
+    zoom: 0.5;
+    background-color: white;
+}
+
+header {
+    position: fixed;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: white;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    z-index: 1;
+}
+
+#header-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 25px 10px 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#iglogo img {
+    height: 100px;
+    zoom: 1.4;
+}
+
+#iglogo img:hover {
+    filter: opacity(70%);
+}
+
+#icons1 {
+    display: inline-block;
+}
+
+#icons1 img {
+    height: 75px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+#icons2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    zoom: 0.8;
+}
+
+#icons2 img {
+    height: 90px;
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+#icons1 a,
+#icons2 a {
+    text-decoration: none;
+    font-size: 32px;
+    margin-left: 20px;
+    color: #FF463E;
+}
+
+#icons2 a:hover,
+#icons2 a:hover {
+    filter: opacity(70%);
+}
+
+#stories-wrapper {
+    margin: 100px auto;
+    width: 1050px;
+}
+
+#stories-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    padding: 50px 0;
+    padding-bottom: 15px;
+}
+
+.story {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.story .profile {
+    background: rgb(255, 201, 0);
+    background: linear-gradient(36deg,
+            rgb(255, 201, 0) 13%,
+            rgb(255, 0, 95) 73%,
+            rgb(255, 9, 237) 100%);
+    padding: 6px;
+    margin: 25px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.story .profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    border: 5px solid white;
+    box-sizing: content-box;
+    object-fit: cover;
+}
+
+.story .profile img:hover {
+    filter: opacity(70%);
+}
+
+.story .title {
+    text-align: center;
+    font-size: 30px;
+}
+
+#main-container {
+    margin: 100px auto;
+    width: 1035px;
+    display: full;
+    padding: 10px;
+}
+
+.post {
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    margin: 10px 0px 20px 0px;
+}
+
+.post:nth-child(1) {
+    margin: -100px 0px 20px 0px;
+}
+
+
+.post-header {
+    display: grid;
+    margin: 10px 0px;
+    grid-template-columns: 15% 65% 10%;
+}
+
+.post-avatar {
+    margin: 10px 0px 10px 20px;
+}
+
+.post-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-header-text-wrapper {
+    margin: 0px 0px 0px -20px;
+    height: 50px;
+}
+
+.post-header-text-wrapper p {
+    line-height: 20px;
+    margin: 15px;
+    font-size: 25px;
+}
+
+.post-header-text-wrapper p:nth-child(1) {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.post-more-icon {
+    margin: 5px 10px 5px 10px;
+}
+
+.post-img img {
+    width: 100%;
+}
+
+.post-icons {
+    margin: 5px 10px 5px 20px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.post-icons img {
+    width: 35px;
+    position: relative;
+    cursor: pointer;
+}
+
+.post-icons img:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    border-radius: 50%;
+}
+
+
+.post-icons img:nth-child(4) {
+    grid-column-start: 9;
+    grid-column-start: 10;
+}
+
+.post-likes p {
+    line-height: 14px;
+    margin: 10px 20px;
+    font-size: 25px;
+
+    padding-bottom: 5px;
+}
+
+.post-comments p {
+    display: inline-block;
+    line-height: 14px;
+    margin: 5px 0px 0px 20px;
+    font-size: 25px;
+
+    padding-bottom: 5px;
+}
+
+.post-comments p:nth-child(2) {
+    line-height: 14px;
+    margin: 5px 0px 0px 0px;
+    font-size: 25px;
+    font-weight: normal;
+    padding-bottom: 5px;
+}
+
+.post-time p {
+    color: #BBBBBB;
+    line-height: 12px;
+    margin: 10px 20px;
+    font-size: 22px;
+    padding-bottom: 5px;
+}
+
+.perfil {
+    background-color: white;
+    zoom: 1.2;
+    border: none;
+
+}
+
+.post-time {
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.comments input[type=text] {
+    width: 80%;
+    padding: 12px 20px;
+    /*   margin: 0px 0px 0px 10px; */
+    display: inline-block;
+    border: 1px solid rgba(100, 100, 100, 0.00);
+    /*   border-radius: 30px; */
+    box-sizing: border-box;
+    background-color: rgba(100, 100, 100, 0.00);
+    outline: none;
+    font-size: 25px;
+}
+
+::placeholder {
+    color: #BBBBBB;
+    line-height: 12px;
+    margin: 10px 20px;
+    font-size: 20px;
+}
+
+.comments input[type=submit] {
+    color: rgba(100, 100, 205, 1);
+    margin-left: 40px;
+    font-size: 20px;
+    display: inline-block;
+    border: 1px solid rgba(100, 100, 100, 0.00);
+    background-color: rgba(100, 100, 100, 0.00);
+    cursor: pointer;
+}
+
+.footer {
+    position: fixed;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: white;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#foot-container {
+    width: 950px;
+    height: 100px;
+    margin: 0px auto;
+    padding: 0px 5px 0px 0px;
+}
+
+#pic1 {
+    display: inline-block;
+}
+
+#pic1 img {
+    float: left;
+    height: 79px;
+}
+
+#pic2 {
+    display: inline-block;
+}
+
+#pic2 img {
+    float: left;
+    height: 72px;
+    padding-left: 108px;
+}
+
+#pic3 {
+    display: inline-block;
+}
+
+#pic3 img {
+    float: left;
+    height: 87px;
+    padding-left: 142px;
+}
+
+#pic4 {
+    display: inline-block;
+}
+
+#pic4 img {
+    float: left;
+    height: 87px;
+    zoom: 0.8;
+    padding-bottom: 5px;
+    padding-left: 152px;
+    padding-right: 115px;
+}
+
+#pic5 {
+    display: inline-block;
+}
+
+
+#pic5 button {
+    float: left;
+    cursor: pointer;
+}
+
+
+#pic5 button img {
+    height: 52px;
+    width: 60px;
+}
+
+#pic1,
+#pic2,
+#pic3,
+#pic4,
+#pic5 {
+    cursor: pointer;
+}
+
+#pic1:hover,
+#pic2:hover,
+#pic3:hover,
+#pic4:hover,
+#pic5:hover {
+    filter: opacity(0.8);
+}
+
+.bienvenida {
+    margin: 20px;
+    font-size: 30px;
+    justify-self: flex-start;
+}
