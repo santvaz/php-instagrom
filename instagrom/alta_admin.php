@@ -23,8 +23,6 @@ try {
 
     header("Location: dashboard_admin.php");
     exit();
-
 } catch (PDOException $e) {
     echo "Error al dar de alta administrador: " . $e->getMessage();
 }
-?>
