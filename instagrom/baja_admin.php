@@ -12,14 +12,17 @@ try {
     $nick = $_POST['usuario_baja'];
 
     # Eliminar administrador de la tabla administradores
-    $query_delete_admin = $db->prepare("DELETE FROM administradores WHERE usuario_id IN (SELECT id FROM usuarios WHERE nick = ?)");
-    $query_delete_admin->execute([$nick]);
+    $query_delete_admin = $db->prepare("DELETE FROM administradores WHERE usuario_id IN (SELECT id FROM usuarios WHERE nick = :nick)");
+    $query_delete_admin->bindParam(':nick', $nick);
+    $query_delete_admin->execute();
 
     # Eliminar usuario de la tabla usuarios
-    $query_delete_user = $db->prepare("DELETE FROM usuarios WHERE nick = ?");
-    $query_delete_user->execute([$nick]);
+    $query_delete_user = $db->prepare("DELETE FROM usuarios WHERE nick = :nick");
+    $query_delete_user->bindParam(':nick', $nick);
+    $query_delete_user->execute();
 
     echo "Administrador dado de baja exitosamente.";
+    header('Location: controlpanel.php');
 } catch (PDOException $e) {
     echo "Error al dar de baja administrador: " . $e->getMessage();
 }

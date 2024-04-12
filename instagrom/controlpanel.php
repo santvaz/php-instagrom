@@ -17,12 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion'])) {
             $password = $_POST['password'];
             $tipo = $_POST['tipo'];
 
-            $preparada = $db->prepare("INSERT INTO usuarios (nombre, email, password, tipo) VALUES (?, ?, ?, ?)");
-            $preparada->execute([$nombre, $email, $password, $tipo]);
+            $sql = $db->prepare("INSERT INTO usuarios (nombre, email, password, tipo) VALUES (:nombre, :email, :password, :tipo)");
+            $sql->bindParam(':nombre', $nombre);
+            $sql->bindParam(':email', $email);
+            $sql->bindParam(':password', $password);
+            $sql->bindParam(':tipo', $tipo);
+
+            $preparada->execute();
         } elseif ($accion == 'baja') {
 
-            $preparada = $db->prepare("DELETE FROM usuarios WHERE id = ?");
-            $preparada->execute([$usuario_id]);
+            $sql = $db->prepare("DELETE FROM usuarios WHERE id = :id");
+            $sql->bindParam(':id', $usuario_id);
+            $sql->execute();
         }
 
         header('Location: alta_baja_usuario.php');

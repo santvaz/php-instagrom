@@ -18,8 +18,9 @@ try {
     $query_insert->execute([$nombre, $email, $nick, $tipo, $password]);
 
     $usuario_id = $db->lastInsertId();
-    $query_admin = $db->prepare("INSERT INTO administradores (usuario_id) VALUES (?)");
-    $query_admin->execute([$usuario_id]);
+    $query_admin = $db->prepare("INSERT INTO administradores (usuario_id) VALUES (:id)");
+    $query_admin->bindParam(':id', $usuario_id);
+    $query_admin->execute();
 
     header("Location: dashboard_admin.php");
     exit();

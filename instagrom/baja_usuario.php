@@ -10,14 +10,13 @@ try {
 
     $nick_instagromer = $_POST['instagromer_baja'];
 
-    $preparada = $db->prepare("DELETE FROM usuarios WHERE nick = ?");
-    $preparada->execute([$nick_instagromer]);
+    $sql = $db->prepare("DELETE FROM usuarios WHERE nick = :nick");
+    $sql->bindParam('nick', $nick_instagromer);
+    $sql->execute();
 
     echo "Instagromer dado de baja exitosamente.";
     header("Location: controlpanel.php");
     exit();
-
 } catch (PDOException $e) {
     echo "Error al dar de baja Instagromer: " . $e->getMessage();
 }
-?>
