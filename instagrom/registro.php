@@ -15,23 +15,31 @@ try {
         $password = $_POST['clave'];
 
         # Verificar si ya existe el email
-        $preparada = $db->prepare("SELECT * FROM usuarios WHERE email = ?");
-        $preparada->execute([$email]);
-        if ($preparada->rowCount() > 0) {
+        $sql = $db->prepare("SELECT * FROM usuarios WHERE email = :email");
+        $sql->bindParam(':email', $email);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
             $error_registro = "El correo electrónico ya está en uso.";
         }
 
         # Verificar si existe el usuario
-        $preparada = $db->prepare("SELECT * FROM usuarios WHERE nick = ?");
-        $preparada->execute([$usuario]);
-        if ($preparada->rowCount() > 0) {
+        $sql = $db->prepare("SELECT * FROM usuarios WHERE nick = :nick");
+        $sql->bindParam(':nick', $usuario);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
             $error_registro = "El nombre de usuario ya está en uso.";
         }
 
         # Si no hay errores, insertar en la base de datos. Por defecto todos serán instagromers, creo que lo adecuado es insertar a los administradores de forma manual y no automatizada
         if (!isset($error_registro)) {
-            $preparada = $db->prepare("INSERT INTO usuarios (nombre, email, nick, password, tipo) VALUES (?, ?, ?, ?, 'Instagromer')");
-            $preparada->execute([$nombre, $email, $usuario, $password]);
+            $sql = $db->prepare("INSERT INTO usuarios (nombre, email, nick, password, tipo) VALUES (:nombre, :email, :nick, :password, 'Instagromer')");
+            $sql->bindParam(':nombre', $nombre);
+            $sql->bindParam(':email', $email);
+            $sql->bindParam(':nick', $usuario);
+            $sql->bindParam(':password', $password);
+            $sql->execute();
 
             $_SESSION['usuario'] = $usuario;
             # Redirigir a dashboard.php después de registrarse
@@ -60,8 +68,7 @@ try {
     <div class="contenedor-contenido">
         <div class="contenedor-alineacion">
             <div class="imagen-telefono">
-                <img src="https://i.ibb.co/0yFRT6k/IG-Profile-Overview.jpg" alt="Vista previa perfil"
-                    class="img-en-telefono">
+                <img src="https://i.ibb.co/0yFRT6k/IG-Profile-Overview.jpg" alt="Vista previa perfil" class="img-en-telefono">
             </div>
             <div class="lado-derecho">
                 <div class="contenedor-inicio-sesion">
@@ -94,8 +101,7 @@ try {
                     <p>Descarga la aplicación.</p>
                     <div class="botones-flex">
                         <img src="https://assets.codepen.io/6060109/IG-app-store-button.png" alt="">
-                        <img id="googleLogo" src="https://assets.codepen.io/6060109/IG-Google-Play-Button.png"
-                            alt="Google Logo">
+                        <img id="googleLogo" src="https://assets.codepen.io/6060109/IG-Google-Play-Button.png" alt="Google Logo">
                     </div>
                 </div>
             </div>
