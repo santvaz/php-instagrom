@@ -21,10 +21,10 @@ try {
     echo "Error con la base de datos: " . $e->getMessage();
 }
 # Sentencia con subquery para seleccionar todas las publicaciones de un sólo usuario
-$sql = "SELECT * FROM publicaciones WHERE usuario_id IN (SELECT id FROM usuarios WHERE nick = ?)";
-$preparada = $db->prepare($sql);
-$preparada->execute([$usuario]);
-$publicaciones = $preparada->fetchAll(PDO::FETCH_ASSOC);
+$sql = $db->prepare("SELECT * FROM publicaciones WHERE usuario_id IN (SELECT id FROM usuarios WHERE nick = :nick)");
+$sql->bindParam(':nick', $usuario);
+$sql->execute();
+$publicaciones = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -66,36 +66,31 @@ $publicaciones = $preparada->fetchAll(PDO::FETCH_ASSOC);
             <div id="stories-container">
                 <a class="story">
                     <div class="profile">
-                        <img src="https://images.unsplash.com/photo-1708242124912-ca576feddd90?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="" />
+                        <img src="https://images.unsplash.com/photo-1708242124912-ca576feddd90?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                     </div>
                     <div class="title">mave.lmao</div>
                 </a>
                 <a class="story">
                     <div class="profile">
-                        <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="" />
+                        <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                     </div>
                     <div class="title">john_doe</div>
                 </a>
                 <a class="story">
                     <div class="profile">
-                        <img src="https://images.unsplash.com/photo-1619895862022-09114b41f16f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="" />
+                        <img src="https://images.unsplash.com/photo-1619895862022-09114b41f16f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                     </div>
                     <div class="title">nuriardz</div>
                 </a>
                 <a class="story">
                     <div class="profile">
-                        <img src="https://images.unsplash.com/photo-1699959634881-16f34059a78f?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="" />
+                        <img src="https://images.unsplash.com/photo-1699959634881-16f34059a78f?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                     </div>
                     <div class="title">khris.23</div>
                 </a>
                 <a class="story">
                     <div class="profile visited">
-                        <img src="https://plus.unsplash.com/premium_photo-1706727288505-674d9c8ce96c?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="" />
+                        <img src="https://plus.unsplash.com/premium_photo-1706727288505-674d9c8ce96c?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                     </div>
                     <div class="title">adamign</div>
                 </a>
@@ -112,14 +107,13 @@ $publicaciones = $preparada->fetchAll(PDO::FETCH_ASSOC);
                     echo "Error con la base de datos: " . $e->getMessage();
                 }
 
-                $sql = "SELECT * FROM publicaciones WHERE usuario_id IN (SELECT id FROM usuarios WHERE nick = ?)";
-                $preparada = $db->prepare($sql);
-                $preparada->execute([$usuario]);
-                $publicaciones = $preparada->fetchAll(PDO::FETCH_ASSOC);
-
+                $sql = $db->prepare("SELECT * FROM publicaciones WHERE usuario_id IN (SELECT id FROM usuarios WHERE nick = :nick)");
+                $sql->bindParam(':nick', $usuario);
+                $sql->execute();
+                $publicaciones = $sql->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($publicaciones as $publicacion) {
-                    ?>
+                ?>
                     <div class="post">
                         <div class="post-header">
                             <div class="post-avatar">
@@ -137,11 +131,11 @@ $publicaciones = $preparada->fetchAll(PDO::FETCH_ASSOC);
                                     </p>
                                     <?php
                                     if (!empty($publicacion['ubicacion'])) {
-                                        ?>
+                                    ?>
                                         <p>
                                             <?php echo $publicacion['ubicacion']; ?>
                                         </p>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </div>
@@ -175,7 +169,7 @@ $publicaciones = $preparada->fetchAll(PDO::FETCH_ASSOC);
                             </form>
                         </div>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
 
