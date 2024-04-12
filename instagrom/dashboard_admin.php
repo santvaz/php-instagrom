@@ -92,9 +92,9 @@ try {
         <div id="main">
             <?php
             try {
-                $sql = "SELECT p.*, u.nick FROM publicaciones p JOIN usuarios u ON p.usuario_id = u.id ORDER BY p.fecha_publicacion DESC";
-                $stmt = $db->query($sql);
-                $publicaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $sql = $db->prepare("SELECT p.*, u.nick FROM publicaciones p JOIN usuarios u ON p.usuario_id = u.id ORDER BY p.fecha_publicacion DESC");
+                $sql->execute();
+                $publicaciones = $sql->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 echo "Error al obtener las publicaciones: " . $e->getMessage();
                 exit();
