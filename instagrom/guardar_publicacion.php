@@ -20,8 +20,11 @@ try {
 }
 
 try {
-    $consulta_usuario = $db->prepare("SELECT id FROM usuarios WHERE nick = ?");
-    $consulta_usuario->execute([$nick_usuario]);
+    $consulta_usuario = $db->prepare("SELECT id FROM usuarios WHERE nick = :nick");
+
+    $consulta_usuario->bindParam(':nick', $nick_usuario);
+
+    $consulta_usuario->execute();
     $resultado = $consulta_usuario->fetch(PDO::FETCH_ASSOC);
 
     if (!$resultado) {
@@ -41,9 +44,14 @@ try {
 
     # Mover la imagen del directorio temporal al directorio de destino
     if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_archivo)) {
-        $sql = "INSERT INTO publicaciones (mensaje, usuario_id, imagen, fecha_publicacion) VALUES (?, ?, ?, ?)";
-        $preparada = $db->prepare($sql);
-        $preparada->execute([$mensaje, $usuario_id, $ruta_archivo, $fecha_publicacion]);
+        $sql = $db->prepare("INSERT INTO publicaciones (mensaje, usuario_id, imagen, fecha_publicacion) VALUES (:mensaje, :usuario_id, :imagen, :fecha_publicacion)");
+
+        $sql->bindParam(':mensaje', $mensaje);
+        $sql->bindParam(':usuario_id', $usuario_id);
+        $sql->bindParam(':imagen', $ruta_archivo);
+        $sql->bindParam(':fecha_publicacion', $fecha_publicacion);
+
+        $sql->execute();
 
         header('Location: dashboard.php');
         exit();
@@ -53,4 +61,3 @@ try {
 } catch (PDOException $e) {
     echo "Error al crear la publicación: " . $e->getMessage();
 }
-?>

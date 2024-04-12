@@ -12,10 +12,13 @@ try {
         $usuario = $_POST['usuario'];
         $password = $_POST['clave'];
 
-        $preparada = $db->prepare("SELECT * FROM usuarios WHERE nick = ? AND password = ?");
-        $preparada->execute([$usuario, $password]);
+        $sql = $db->prepare("SELECT * FROM usuarios WHERE nick = :nick AND password = :password");
+        $sql->bindParam(':nick', $usuario);
+        $sql->bindParam(':password', $password);
 
-        if ($fila = $preparada->fetch(PDO::FETCH_ASSOC)) {
+        $sql->execute();
+
+        if ($fila = $sql->fetch(PDO::FETCH_ASSOC)) {
             $_SESSION['usuario'] = $fila['nick'];
 
             # Según tipo de rol
@@ -50,14 +53,12 @@ try {
     <div class="contenedor-contenido">
         <div class="contenedor-alineacion">
             <div class="imagen-telefono">
-                <img src="https://i.ibb.co/0yFRT6k/IG-Profile-Overview.jpg" alt="Vista previa perfil"
-                    class="img-en-telefono">
+                <img src="https://i.ibb.co/0yFRT6k/IG-Profile-Overview.jpg" alt="Vista previa perfil" class="img-en-telefono">
             </div>
             <div class="lado-derecho">
                 <div class="contenedor-inicio-sesion">
                     <a href="login.php"><img id="logo" src="img/ig-logo.png" alt=""></a>
-                    <form form id="loginForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"
-                        method="post">
+                    <form form id="loginForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                         <input type="text" id="usuario" name="usuario" placeholder="Usuario">
                         <input type="password" id="clave" name="clave" placeholder="Contraseña">
                         <div class="iniciar-sesion">
@@ -85,8 +86,7 @@ try {
                     <p>Descarga la aplicación.</p>
                     <div class="botones-flex">
                         <img src="https://assets.codepen.io/6060109/IG-app-store-button.png" alt="">
-                        <img id="googleLogo" src="https://assets.codepen.io/6060109/IG-Google-Play-Button.png"
-                            alt="Google Logo">
+                        <img id="googleLogo" src="https://assets.codepen.io/6060109/IG-Google-Play-Button.png" alt="Google Logo">
                     </div>
                 </div>
             </div>
