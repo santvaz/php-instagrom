@@ -14,8 +14,13 @@ try {
     $password = $_POST['password_alta'];
     $tipo = 'Administrador';
 
-    $query_insert = $db->prepare("INSERT INTO usuarios (nombre, email, nick, tipo, password) VALUES (?, ?, ?, ?, ?)");
-    $query_insert->execute([$nombre, $email, $nick, $tipo, $password]);
+    $query_insert = $db->prepare("INSERT INTO usuarios (nombre, email, nick, tipo, password) VALUES (:nombre, :email, :nick, :tipo, :password)");
+    $query_admin->bindParam(':nombre', $nombre);
+    $query_admin->bindParam(':email', $email);
+    $query_admin->bindParam(':nick', $nick);
+    $query_admin->bindParam(':tipo', $tipo);
+    $query_admin->bindParam(':password', $password);
+    $query_insert->execute();
 
     $usuario_id = $db->lastInsertId();
     $query_admin = $db->prepare("INSERT INTO administradores (usuario_id) VALUES (:id)");
